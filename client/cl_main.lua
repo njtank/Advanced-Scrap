@@ -22,7 +22,6 @@ RegisterNetEvent('qbx_junkyard:client:scrapSuccess', function(items)
         type = 'success',
         description = 'You received: ' .. table.concat(itemList, ', ')
     })
-
     if scrapCount >= Config.ScrapsBeforeDelivery then
         exports.ox_lib:notify({
             type = 'inform',
@@ -39,7 +38,6 @@ end)
 
 RegisterNetEvent('qbx_junkyard:client:startDelivery', function(location)
     currentDeliveryLocation = location
-    
     if deliveryBlip then RemoveBlip(deliveryBlip) end
     deliveryBlip = AddBlipForCoord(location.x, location.y, location.z)
     SetBlipSprite(deliveryBlip, 1)

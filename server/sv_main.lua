@@ -3,7 +3,7 @@ local PlayerData = {}
 lib.callback.register('qbx_junkyard:server:scrapVehicle', function(source)
     local player = exports.qbx_core:GetPlayer(source)
     if not player then return false end
-
+    Wait(500)
     local items = {}
     local itemCount = math.random(Config.MinItems, Config.MaxItems)
     

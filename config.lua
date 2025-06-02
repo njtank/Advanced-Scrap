@@ -1,6 +1,5 @@
 local Config = {}
 
--- Scrap car locations
 Config.Locations = {
     vec3(2404.92, 3128.02, 48.15),
     vec3(2409.32, 3098.67, 48.15),
@@ -49,5 +48,14 @@ Config.TargetOptions = {
 }
 
 Config.NPCModel = 's_m_y_construct_01'
+
+Config.ScrapProgress = {
+    duration = 12000, -- in milliseconds
+    label = 'Scrapping vehicle...',
+    animation = {
+        dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+        clip = 'machinic_loop_mechandplayer'
+    }
+}
 
 return Config

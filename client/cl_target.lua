@@ -1,4 +1,4 @@
-local canScrapVehicle = function(entity)
+local function canScrapVehicle(entity)
     return true
 end
 
@@ -7,12 +7,31 @@ local function scrapVehicle(entity)
         exports.ox_lib:notify({type = 'error', description = 'You need to deliver the package first'})
         return
     end
-    
-    lib.callback('qbx_junkyard:server:scrapVehicle', false, function(success)
-        if not success then
-            exports.ox_lib:notify({type = 'error', description = 'Failed to scrap vehicle'})
-        end
-    end)
+    if lib.progressBar({
+        duration = Config.ScrapProgress.duration,
+        label = Config.ScrapProgress.label,
+        useWhileDead = false,
+        canCancel = true,
+        disable = {
+            move = true,
+            car = true,
+            combat = true,
+        },
+        anim = {
+            dict = Config.ScrapProgress.animation.dict,
+            clip = Config.ScrapProgress.animation.clip,
+            flag = 1,
+        },
+    }) then
+        lib.callback('qbx_junkyard:server:scrapVehicle', false, function(success)
+            if not success then
+                exports.ox_lib:notify({type = 'error', description = 'Failed to scrap vehicle'})
+            end
+        end)
+    else
+        exports.ox_lib:notify({type = 'error', description = 'Scrapping canceled'})
+        ClearPedTasks(cache.ped)
+    end
 end
 
 CreateThread(function()
